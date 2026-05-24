@@ -29,21 +29,7 @@ cp .env.example .env
 
 Open `.env` and fill in every value (see [Environment variables](#environment-variables) below).
 
-### 2. Update the ngrok domain
-
-The compose file hard-codes the ngrok domain in two places. Replace `virtually-workable-fly.ngrok-free.app` with your own domain:
-
-```yaml
-# docker-compose.yml — update both occurrences
-- N8N_HOST=<your-domain>.ngrok-free.app
-- WEBHOOK_URL=https://<your-domain>.ngrok-free.app/
-- N8N_EDITOR_BASE_URL=https://<your-domain>.ngrok-free.app/
-...
-command:
-  - "--domain=<your-domain>.ngrok-free.app"
-```
-
-### 3. Start the stack
+### 2. Start the stack
 
 ```bash
 docker compose up -d
@@ -51,7 +37,7 @@ docker compose up -d
 
 Services start in dependency order: Postgres → Qdrant → n8n → ngrok.
 
-### 4. Open the UI
+### 3. Open the UI
 
 | Interface | URL |
 |-----------|-----|
@@ -67,6 +53,7 @@ Copy `.env.example` to `.env` and set each value before first run.
 | Variable | Required | Description |
 |----------|----------|-------------|
 | `NGROK_AUTHTOKEN` | Yes | Auth token from https://dashboard.ngrok.com/get-started/your-authtoken |
+| `NGROK_DOMAIN` | Yes | Your reserved ngrok domain (e.g. `foo.ngrok-free.app`) |
 | `POSTGRES_USER` | Yes | Database username (default: `n8n`) |
 | `POSTGRES_PASSWORD` | Yes | Database password — choose something strong |
 | `POSTGRES_DB` | Yes | Database name (default: `n8n`) |
@@ -134,7 +121,7 @@ Use the internal service name `qdrant` (not `localhost`) because n8n runs inside
 Postgres health-checks must pass before n8n starts. Check logs: `docker compose logs postgres`
 
 **Webhooks not receiving traffic**
-Confirm ngrok is connected: `docker compose logs ngrok` and check http://localhost:4040. Make sure `WEBHOOK_URL` in `.env` matches your actual ngrok domain.
+Confirm ngrok is connected: `docker compose logs ngrok` and check http://localhost:4040. Make sure `NGROK_DOMAIN` in `.env` matches your actual reserved ngrok domain.
 
 **"Invalid encryption key" after restart**
 `N8N_ENCRYPTION_KEY` changed or was lost. Restore the original value — it must remain the same for the lifetime of the instance.
