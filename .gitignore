@@ -1,0 +1,9 @@
+# Secrets — never commit these
+.env
+.mcp.json
+
+# n8n local data
+files/
+
+# Claude Code session data
+.claude/
