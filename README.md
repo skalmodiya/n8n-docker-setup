@@ -22,7 +22,7 @@ A self-hosted [n8n](https://n8n.io) automation stack with persistent Postgres st
 ### 1. Clone and configure
 
 ```bash
-git clone [<repo-url>](https://github.com/skalmodiya/n8n-docker-setup.git)
+git clone https://github.com/skalmodiya/n8n-docker-setup.git
 cd n8n
 cp .env.example .env
 ```
